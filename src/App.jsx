@@ -9,6 +9,9 @@ function App() {
     singleTip: 0,
   });
 
+  // tip buttons
+  const tipAmounts = [5, 10, 15, 25, 50];
+
   // event handlers
   const handleCalculations = () => {
     // full tip amount
@@ -42,13 +45,25 @@ function App() {
             }))
           }
         />
-        <input
-          type="number"
-          id="tipInput"
-          placeholder="Enter tip amount..."
-          className="border border-green-200"
-          onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
-        />
+        {/* tip amounts */}
+        <div>
+          {tipAmounts.map((amount) => (
+            <button
+              className="border border-green-300"
+              onClick={() => setTipPercent(amount / 100)}
+            >
+              {amount}%
+            </button>
+          ))}
+          <input
+            type="number"
+            id="tipInput"
+            placeholder="Enter tip amount..."
+            className="border border-green-200"
+            onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
+          />
+        </div>
+
         <input
           type="number"
           id="peopleInput"
