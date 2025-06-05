@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 function App() {
-  const [userInfo, setUserInfo] = useState({ billAmount: 0, people: 0 });
-  const [tipPercent, setTipPercent] = useState(0);
+  const [userInfo, setUserInfo] = useState({ billAmount: 0, people: null });
+  const [tipPercent, setTipPercent] = useState(null);
   const [calculate, setCalculate] = useState(false);
   const [newAmounts, setNewAmounts] = useState({
-    total: 0,
-    singleTotal: 0,
-    singleTip: 0,
+    total: 0.0,
+    singleTotal: 0.0,
+    singleTip: 0.0,
   });
-
   // tip buttons
   const tipAmounts = [5, 10, 15, 25, 50];
 
@@ -29,6 +28,18 @@ function App() {
       singleTip: splitTip,
     }));
   };
+
+  useEffect(() => {
+    // useMemo here or after the amounts have been calculated?
+    // gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
+    if (userInfo.people != 0 && userInfo.people != null) {
+      handleCalculations();
+    }
+
+    if (userInfo.billAmount != 0 && tipPercent != 0 && userInfo.people === 0) {
+      console.log("Can't be zero!");
+    }
+  }, [userInfo]);
   return (
     <>
       <div>
@@ -37,7 +48,7 @@ function App() {
           type="number"
           id="billInput"
           className="border border-amber-200"
-          placeholder="Enter bill amount..."
+          placeholder="0"
           onChange={(e) =>
             setUserInfo((prev) => ({
               ...prev,
@@ -49,6 +60,7 @@ function App() {
         <div>
           {tipAmounts.map((amount) => (
             <button
+              key={amount}
               className="border border-green-300"
               onClick={() => setTipPercent(amount / 100)}
             >
@@ -58,7 +70,7 @@ function App() {
           <input
             type="number"
             id="tipInput"
-            placeholder="Enter tip amount..."
+            placeholder="0"
             className="border border-green-200"
             onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
           />
@@ -67,7 +79,7 @@ function App() {
         <input
           type="number"
           id="peopleInput"
-          placeholder="Enter number of people..."
+          placeholder="0"
           className="border border-blue-200"
           onChange={(e) =>
             setUserInfo((prev) => ({ ...prev, people: Number(e.target.value) }))
