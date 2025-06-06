@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     // useMemo here or after the amounts have been calculated?
-    // gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
+    // ! gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
     if (userInfo.people != 0 && userInfo.people != null) {
       handleCalculations();
     }
