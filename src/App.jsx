@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import logo from "./assets/logo.svg";
 import dollar from "./assets/icon-dollar.svg";
 import person from "./assets/icon-person.svg";
+import { useWindowSize } from "@uidotdev/usehooks";
 function App() {
   const [userInfo, setUserInfo] = useState({ billAmount: 0, people: null });
   const [tipPercent, setTipPercent] = useState(null);
@@ -14,8 +15,13 @@ function App() {
     singleTip: 0.0,
   });
   const [selectedTip, setSelectedTip] = useState(null);
+  const [peopleError, setPeopleError] = useState({
+    mobile: true,
+    desktop: true,
+  });
   const billRef = useRef(null);
   const nameRef = useRef(null);
+  const size = useWindowSize();
 
   const handleSelect = (amount) => {
     setSelectedTip((prev) => (prev === amount ? null : amount));
@@ -61,19 +67,20 @@ function App() {
   useEffect(() => {
     // useMemo here or after the amounts have been calculated?
     // ! gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
-    if (
-      userInfo.people != 0 &&
-      userInfo.people != null &&
-      userInfo.people != 0
-    ) {
+    if (userInfo.people != 0 && userInfo.people != null) {
       handleCalculations();
     }
 
-    // only show if everything else has been filled in except for people or if it's 0
-    if (userInfo.billAmount != 0 && tipPercent != 0 && userInfo.people === 0) {
-      console.log("Can't be zero!");
+    if (nameRef.current) {
+      if (nameRef.current.value < 1 && nameRef.current.value != "") {
+        size.width < 425
+          ? setPeopleError({ mobile: false, desktop: true })
+          : setPeopleError({ mobile: true, desktop: false });
+      } else if (nameRef.current.value >= 1) {
+        setPeopleError({ mobile: true, desktop: true });
+      }
     }
-  }, [userInfo]);
+  }, [userInfo, nameRef]);
 
   const inputStyle = (input) => {
     let outlineStyle = "";
@@ -88,7 +95,7 @@ function App() {
       inputArea = billFocus;
     } else if (input === "name") {
       if (nameRef.current) {
-        if (nameRef.current.value >= 2 || nameRef.current.value === "") {
+        if (nameRef.current.value >= 1 || nameRef.current.value === "") {
           inputArea = peopleFocus;
           errorStyle = "";
         } else {
@@ -164,7 +171,7 @@ function App() {
           <div>
             <div className="flex w-full justify-between">
               <label htmlFor="peopleInput">Number of People</label>
-              <p className="text-red" hidden={true}>
+              <p className="text-red" hidden={peopleError.desktop}>
                 Can't be zero.
               </p>
             </div>
@@ -186,7 +193,7 @@ function App() {
                 }
               />
             </div>
-            <p className="mt-1.5 text-red" hidden={true}>
+            <p className="mt-1.5 text-red" hidden={peopleError.mobile}>
               Can't be zero.
             </p>
           </div>
