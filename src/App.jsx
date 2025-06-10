@@ -21,6 +21,7 @@ function App() {
   });
   const billRef = useRef(null);
   const nameRef = useRef(null);
+  const tipRef = useRef(null);
   const size = useWindowSize();
 
   const handleSelect = (amount) => {
@@ -65,8 +66,6 @@ function App() {
   };
 
   useEffect(() => {
-    // useMemo here or after the amounts have been calculated?
-    // ! gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
     if (userInfo.people != 0 && userInfo.people != null) {
       handleCalculations();
     }
@@ -80,7 +79,7 @@ function App() {
         setPeopleError({ mobile: true, desktop: true });
       }
     }
-  }, [userInfo, nameRef]);
+  }, [userInfo, nameRef, tipPercent]);
 
   const inputStyle = (input) => {
     let outlineStyle = "";
