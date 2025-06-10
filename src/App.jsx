@@ -7,15 +7,20 @@ function App() {
   const [tipPercent, setTipPercent] = useState(null);
   const [calculate, setCalculate] = useState(false);
   const [billFocus, setBillFocus] = useState(false);
-  const [nameFocus, setNameFocus] = useState(false);
+  const [peopleFocus, setPeopleFocus] = useState(false);
   const [newAmounts, setNewAmounts] = useState({
     total: 0.0,
     singleTotal: 0.0,
     singleTip: 0.0,
   });
-
+  const [selectedTip, setSelectedTip] = useState(null);
   const billRef = useRef(null);
   const nameRef = useRef(null);
+
+  const handleSelect = (amount) => {
+    setSelectedTip((prev) => (prev === amount ? null : amount));
+    setTipPercent(amount / 100);
+  };
 
   const handleReset = () => {
     if (billRef.current) {
@@ -72,11 +77,24 @@ function App() {
 
   const inputStyle = (input) => {
     let outlineStyle = "";
+    let errorStyle = "";
     let inputArea = false;
+
+    if (nameRef.current) {
+      errorStyle = nameRef.current.checkValidity();
+    }
+
     if (input === "bill") {
       inputArea = billFocus;
     } else if (input === "name") {
-      inputArea = nameFocus;
+      if (nameRef.current) {
+        if (nameRef.current.value >= 2 || nameRef.current.value === "") {
+          inputArea = peopleFocus;
+          errorStyle = "";
+        } else {
+          errorStyle = "outline-2 outline-red";
+        }
+      }
     }
 
     if (inputArea === true) {
@@ -84,8 +102,9 @@ function App() {
     } else {
       outlineStyle = "";
     }
-    return `section-div w-full flex items-center px-3 py-1 bg-grey-50 rounded-md ${outlineStyle}`;
+    return `section-div w-full flex items-center px-3 py-1 bg-grey-50 rounded-md ${outlineStyle} ${errorStyle}`;
   };
+
   return (
     <div className="bg-grey-200 w-screen h-screen">
       <header className="h-2/10 w-full flex justify-center items-center">
@@ -121,8 +140,12 @@ function App() {
                 <button
                   name="tipInput"
                   key={amount}
-                  className="w-[130px] text-2xl py-1.5 rounded-md text-grey-50 bg-green-900 hover:text-green-900 hover:bg-green-primary"
-                  onClick={() => setTipPercent(amount / 100)}
+                  className={`w-[130px] text-2xl py-1.5 rounded-md ${
+                    selectedTip === amount
+                      ? "bg-green-primary text-green-900"
+                      : "bg-green-900 text-grey-50"
+                  } bg-green-900 hover:text-green-900 hover:bg-green-primary`}
+                  onClick={() => handleSelect(amount)}
                 >
                   {amount}%
                 </button>
@@ -130,6 +153,8 @@ function App() {
               <input
                 type="number"
                 name="tipInput"
+                min={2}
+                max={30}
                 placeholder="Custom"
                 className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right"
                 onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
@@ -137,7 +162,12 @@ function App() {
             </div>
           </div>
           <div>
-            <label htmlFor="peopleInput">Number of People</label>
+            <div className="flex w-full justify-between">
+              <label htmlFor="peopleInput">Number of People</label>
+              <p className="text-red" hidden={true}>
+                Can't be zero.
+              </p>
+            </div>
             <div className={inputStyle("name")} tabIndex={0}>
               <img src={person} alt="person icon" className="h-4 w-3" />
               <input
@@ -145,8 +175,8 @@ function App() {
                 type="number"
                 id="peopleInput"
                 placeholder="0"
-                onFocus={() => setNameFocus(true)}
-                onBlur={() => setNameFocus(false)}
+                onFocus={() => setPeopleFocus(true)}
+                onBlur={() => setPeopleFocus(false)}
                 className="w-full text-2xl text-right focus:outline-0 text-green-900"
                 onChange={(e) =>
                   setUserInfo((prev) => ({
@@ -156,6 +186,9 @@ function App() {
                 }
               />
             </div>
+            <p className="mt-1.5 text-red" hidden={true}>
+              Can't be zero.
+            </p>
           </div>
         </section>
         <section className="bg-green-900 w-full px-5 pb-6 pt-8 min-h-58 flex flex-col justify-between rounded-lg">
