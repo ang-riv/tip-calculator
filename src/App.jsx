@@ -112,7 +112,7 @@ function App() {
 
   return (
     <div className="bg-grey-200 overflow-y-scroll w-screen h-fit md:h-screen flex flex-col items-center justify-center">
-      <header className="h-[150px] w-full flex justify-center items-center">
+      <header className="h-[150px] min-xs:h-2/10 w-full flex justify-center items-center">
         <img src={logo} alt="logo" className="w-[90px] h-[55px]" />
       </header>
       <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[748px] md:flex-row md:rounded-2xl md:h-[450px] lg:max-w-[900px] lg:h-[500px]">
