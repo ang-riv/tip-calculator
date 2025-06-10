@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import logo from "./assets/logo.svg";
+import dollar from "./assets/icon-dollar.svg";
+import person from "./assets/icon-person.svg";
 function App() {
   const [userInfo, setUserInfo] = useState({ billAmount: 0, people: null });
   const [tipPercent, setTipPercent] = useState(null);
@@ -32,77 +35,116 @@ function App() {
   useEffect(() => {
     // useMemo here or after the amounts have been calculated?
     // ! gonna also need to run this if the billAmount, tipPercent, and numOfPeople change!
-    if (userInfo.people != 0 && userInfo.people != null) {
+    if (
+      userInfo.people != 0 &&
+      userInfo.people != null &&
+      userInfo.people != 0
+    ) {
       handleCalculations();
     }
 
+    // only show if everything else has been filled in except for people or if it's 0
     if (userInfo.billAmount != 0 && tipPercent != 0 && userInfo.people === 0) {
       console.log("Can't be zero!");
     }
   }, [userInfo]);
   return (
-    <>
-      <div>
-        <h1>Tip Calculator</h1>
-        <input
-          type="number"
-          id="billInput"
-          className="border border-amber-200"
-          placeholder="0"
-          onChange={(e) =>
-            setUserInfo((prev) => ({
-              ...prev,
-              billAmount: Number(e.target.value),
-            }))
-          }
-        />
-        {/* tip amounts */}
-        <div>
-          {tipAmounts.map((amount) => (
-            <button
-              key={amount}
-              className="border border-green-300"
-              onClick={() => setTipPercent(amount / 100)}
-            >
-              {amount}%
-            </button>
-          ))}
-          <input
-            type="number"
-            id="tipInput"
-            placeholder="0"
-            className="border border-green-200"
-            onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
-          />
-        </div>
-
-        <input
-          type="number"
-          id="peopleInput"
-          placeholder="0"
-          className="border border-blue-200"
-          onChange={(e) =>
-            setUserInfo((prev) => ({ ...prev, people: Number(e.target.value) }))
-          }
-        />
-        <button className=" bg-pink-200" onClick={handleCalculations}>
-          Calculate
-        </button>
-        {/* info calculated */}
-        <div>
-          <p>Bill Amount: {userInfo.billAmount}</p>
-          <p>Tip Percent: {tipPercent}</p>
-          <p>Num of People: {userInfo.people}</p>
-        </div>
-        {calculate && (
+    <div className="bg-grey-200 w-screen h-screen">
+      <header className="h-2/10 w-full flex justify-center items-center">
+        <img src={logo} alt="logo" className="w-[90px] h-[55px]" />
+      </header>
+      <main className="bg-white h-8/10 w-full rounded-t-2xl py-7 px-6">
+        <section>
           <div>
-            <p>New Total: {newAmounts.total.toFixed(2)}</p>
-            <p>Split Tip: {newAmounts.singleTip.toFixed(2)}</p>
-            <p>Split Total: {newAmounts.singleTotal.toFixed(2)}</p>
+            <label htmlFor="billInput">Bill</label>
+            <div
+              className="w-full flex items-center px-3 py-1 bg-grey-50 rounded-md focus:outline-2 focus:outline-b-green-900"
+              tabIndex={0}
+            >
+              <img src={dollar} alt="dollar icon" className="h-4 w-3" />
+              <input
+                type="number"
+                name="billInput"
+                className="w-full text-2xl text-right focus:outline-0"
+                placeholder="0"
+                onChange={(e) =>
+                  setUserInfo((prev) => ({
+                    ...prev,
+                    billAmount: Number(e.target.value),
+                  }))
+                }
+              />
+            </div>
           </div>
-        )}
-      </div>
-    </>
+          <div className="w-full">
+            <label htmlFor="tipInput">Select Tip %</label>
+            <div className="w-full flex flex-wrap gap-3 justify-center">
+              {tipAmounts.map((amount) => (
+                <button
+                  name="tipInput"
+                  key={amount}
+                  className="border border-green-300 w-[130px] text-2xl py-1 rounded-md text-grey-50 bg-green-900"
+                  onClick={() => setTipPercent(amount / 100)}
+                >
+                  {amount}%
+                </button>
+              ))}
+              <input
+                type="number"
+                name="tipInput"
+                placeholder="Custom"
+                className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary"
+                onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="peopleInput">Number of People</label>
+            <div
+              className="w-full flex items-center px-3 py-1 bg-grey-50 focus:outline-2 rounded-md focus:outline-b-green-900"
+              tabIndex={0}
+            >
+              <img src={person} alt="person icon" className="h-4 w-3" />
+              <input
+                type="number"
+                id="peopleInput"
+                placeholder="0"
+                className="w-full text-2xl text-right focus:outline-0"
+                onChange={(e) =>
+                  setUserInfo((prev) => ({
+                    ...prev,
+                    people: Number(e.target.value),
+                  }))
+                }
+              />
+            </div>
+          </div>
+        </section>
+        <section className="bg-green-900 w-full px-5 pb-6 pt-8 h-58 flex flex-col justify-between rounded-lg">
+          <div className="flex items-center">
+            <div className="w-1/2">
+              <p className="text-grey-50">Tip Amount</p>
+              <p className="text-grey-400 text-sm">/ per person</p>
+            </div>
+            <div className="w-1/2">
+              <p className="text-2xl text-green-primary text-right">$4.50</p>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/2">
+              <p className="text-grey-50">Total</p>
+              <p className="text-grey-400 text-sm">/ per person</p>
+            </div>
+            <div className="w-1/2">
+              <p className="text-2xl text-green-primary text-right">$34.50</p>
+            </div>
+          </div>
+          <div className="w-full text-green-900 bg-green-primary text-center py-2 rounded-md">
+            <button>RESET</button>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 
