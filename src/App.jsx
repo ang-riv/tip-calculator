@@ -13,6 +13,25 @@ function App() {
     singleTotal: 0.0,
     singleTip: 0.0,
   });
+
+  const billRef = useRef(null);
+  const nameRef = useRef(null);
+
+  const handleReset = () => {
+    if (billRef.current) {
+      billRef.current.value = "";
+    }
+    if (nameRef.current) {
+      nameRef.current.value = "";
+    }
+    setUserInfo({ billAmount: 0, people: null });
+    setNewAmounts({
+      total: 0.0,
+      singleTotal: 0.0,
+      singleTip: 0.0,
+    });
+  };
+
   // tip buttons
   const tipAmounts = [5, 10, 15, 25, 50];
 
@@ -72,18 +91,19 @@ function App() {
       <header className="h-2/10 w-full flex justify-center items-center">
         <img src={logo} alt="logo" className="w-[90px] h-[55px]" />
       </header>
-      <main className="bg-white h-full w-full rounded-t-2xl py-7 px-6 flex flex-col justify-around">
+      <main className="bg-white h-full w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around">
         <section className="h-6/10 flex flex-col justify-around">
           <div>
             <label htmlFor="billInput">Bill</label>
             <div className={inputStyle("bill")} tabIndex={0}>
               <img src={dollar} alt="dollar icon" className="h-4 w-3" />
               <input
+                ref={billRef}
                 onFocus={() => setBillFocus(true)}
                 onBlur={() => setBillFocus(false)}
                 type="number"
                 name="billInput"
-                className="w-full text-2xl text-right focus:outline-0"
+                className="w-full text-2xl text-right focus:outline-0 text-green-900"
                 placeholder="0"
                 onChange={(e) =>
                   setUserInfo((prev) => ({
@@ -101,7 +121,7 @@ function App() {
                 <button
                   name="tipInput"
                   key={amount}
-                  className="border border-green-300 w-[130px] text-2xl py-1.5 rounded-md text-grey-50 bg-green-900"
+                  className="w-[130px] text-2xl py-1.5 rounded-md text-grey-50 bg-green-900 hover:text-green-900 hover:bg-green-primary"
                   onClick={() => setTipPercent(amount / 100)}
                 >
                   {amount}%
@@ -111,7 +131,7 @@ function App() {
                 type="number"
                 name="tipInput"
                 placeholder="Custom"
-                className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary"
+                className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right"
                 onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
               />
             </div>
@@ -121,12 +141,13 @@ function App() {
             <div className={inputStyle("name")} tabIndex={0}>
               <img src={person} alt="person icon" className="h-4 w-3" />
               <input
+                ref={nameRef}
                 type="number"
                 id="peopleInput"
                 placeholder="0"
                 onFocus={() => setNameFocus(true)}
                 onBlur={() => setNameFocus(false)}
-                className="w-full text-2xl text-right focus:outline-0"
+                className="w-full text-2xl text-right focus:outline-0 text-green-900"
                 onChange={(e) =>
                   setUserInfo((prev) => ({
                     ...prev,
@@ -144,7 +165,9 @@ function App() {
               <p className="text-grey-400 text-sm">/ per person</p>
             </div>
             <div className="w-1/2">
-              <p className="text-2xl text-green-primary text-right">$4.50</p>
+              <p className="text-2xl text-green-primary text-right">
+                ${newAmounts.singleTip.toFixed(2)}
+              </p>
             </div>
           </div>
           <div className="flex items-center">
@@ -153,11 +176,13 @@ function App() {
               <p className="text-grey-400 text-sm">/ per person</p>
             </div>
             <div className="w-1/2">
-              <p className="text-2xl text-green-primary text-right">$34.50</p>
+              <p className="text-2xl text-green-primary text-right">
+                ${newAmounts.singleTotal.toFixed(2)}
+              </p>
             </div>
           </div>
           <div className="w-full text-green-900 bg-green-primary text-center py-2 rounded-md">
-            <button>RESET</button>
+            <button onClick={handleReset}>RESET</button>
           </div>
         </section>
       </main>
