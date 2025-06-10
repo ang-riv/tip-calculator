@@ -111,7 +111,7 @@ function App() {
   };
 
   return (
-    <div className="bg-grey-200 overflow-y-scroll w-screen h-fit md:h-screen flex flex-col items-center justify-center">
+    <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center">
       <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
         <img src={logo} alt="logo" className="w-[5.625em] h-[3.438em]" />
       </header>
@@ -149,11 +149,11 @@ function App() {
                   <button
                     name="tipInput"
                     key={amount}
-                    className={`min-w-[8.125em] lg:min-w-[8.125em] text-2xl py-2.5 rounded-md md:min-w-[10em] ${
+                    className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
                       selectedTip === amount
-                        ? "bg-green-primary text-green-900"
+                        ? "bg-grey-200 text-green-900"
                         : "bg-green-900 text-grey-50"
-                    } bg-green-900 hover:text-green-900 hover:bg-green-primary`}
+                    } bg-green-900 hover:text-green-900 hover:cursor-pointer hover:bg-grey-200`}
                     onClick={() => handleSelect(amount)}
                   >
                     {amount}%
@@ -165,7 +165,7 @@ function App() {
                   min={2}
                   max={30}
                   placeholder="Custom"
-                  className="bg-grey-50 w-[8.125em] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right md:min-w-[10em] lg:min-w-[8.125em]"
+                  className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right md:min-w-[160px] lg:min-w-[130px]"
                   onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
                 />
               </div>
@@ -228,7 +228,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6">
+          <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6 hover:bg-grey-200">
             <button onClick={handleReset}>RESET</button>
           </div>
         </section>
