@@ -63,6 +63,7 @@ function App() {
   useEffect(() => {
     if (
       userInfo.people != 0 &&
+      userInfo.people != null &&
       userInfo.billAmount != 0 &&
       tipPercent != null
     ) {
@@ -110,15 +111,15 @@ function App() {
   };
 
   return (
-    <div className="bg-grey-200 w-screen h-screen flex flex-col items-center justify-center">
-      <header className="h-2/10 w-full flex justify-center items-center">
+    <div className="bg-grey-200 overflow-y-scroll w-screen h-fit md:h-screen flex flex-col items-center justify-center">
+      <header className="h-[150px] w-full flex justify-center items-center">
         <img src={logo} alt="logo" className="w-[90px] h-[55px]" />
       </header>
-      <main className="bg-white h-full w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[748px] md:flex-row md:rounded-2xl md:h-[450px] lg:max-w-[900px] lg:h-[500px]">
+      <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[748px] md:flex-row md:rounded-2xl md:h-[450px] lg:max-w-[900px] lg:h-[500px]">
         {/* input section */}
         <section className="h-6/10 flex flex-col justify-around max-w-md md:h-full md:w-5/10 md:mr-5">
           {/* bill section */}
-          <div>
+          <div className="section-margins">
             <label htmlFor="billInput">Bill</label>
             <div className={inputStyle("bill")} tabIndex={0}>
               <img src={dollar} alt="dollar icon" className="h-4 w-3" />
@@ -140,15 +141,15 @@ function App() {
             </div>
           </div>
           {/* select tip section */}
-          <div className="w-full">
+          <div className="w-full section-margins">
             <label htmlFor="tipInput">Select Tip %</label>
             <div className="w-full flex justify-center ">
-              <div className="section-div flex flex-wrap gap-3 justify-center max-w-[500px]">
+              <div className="section-div flex flex-wrap gap-3 justify-center max-w-[500px] ">
                 {tipAmounts.map((amount) => (
                   <button
                     name="tipInput"
                     key={amount}
-                    className={`min-w-[130px] text-2xl py-2.5 rounded-md ${
+                    className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
                       selectedTip === amount
                         ? "bg-green-primary text-green-900"
                         : "bg-green-900 text-grey-50"
@@ -164,14 +165,14 @@ function App() {
                   min={2}
                   max={30}
                   placeholder="Custom"
-                  className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right"
+                  className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right md:min-w-[160px] lg:min-w-[130px]"
                   onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
                 />
               </div>
             </div>
           </div>
           {/* people section */}
-          <div>
+          <div className="section-margins">
             <div className="flex w-full justify-between">
               <label htmlFor="peopleInput">Number of People</label>
               <p className="text-red" hidden={peopleError.desktop}>
@@ -227,7 +228,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md">
+          <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6">
             <button onClick={handleReset}>RESET</button>
           </div>
         </section>
