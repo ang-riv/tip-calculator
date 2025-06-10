@@ -229,7 +229,9 @@ function App() {
             </div>
           </div>
           <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6 hover:bg-grey-200">
-            <button onClick={handleReset}>RESET</button>
+            <button onClick={handleReset} className="hover:cursor-pointer">
+              RESET
+            </button>
           </div>
         </section>
       </main>
