@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import logo from "./assets/logo.svg";
 import dollar from "./assets/icon-dollar.svg";
 import person from "./assets/icon-person.svg";
@@ -6,6 +6,8 @@ function App() {
   const [userInfo, setUserInfo] = useState({ billAmount: 0, people: null });
   const [tipPercent, setTipPercent] = useState(null);
   const [calculate, setCalculate] = useState(false);
+  const [billFocus, setBillFocus] = useState(false);
+  const [nameFocus, setNameFocus] = useState(false);
   const [newAmounts, setNewAmounts] = useState({
     total: 0.0,
     singleTotal: 0.0,
@@ -48,21 +50,37 @@ function App() {
       console.log("Can't be zero!");
     }
   }, [userInfo]);
+
+  const inputStyle = (input) => {
+    let outlineStyle = "";
+    let inputArea = false;
+    if (input === "bill") {
+      inputArea = billFocus;
+    } else if (input === "name") {
+      inputArea = nameFocus;
+    }
+
+    if (inputArea === true) {
+      outlineStyle = "outline-2 outline-green-primary";
+    } else {
+      outlineStyle = "";
+    }
+    return `section-div w-full flex items-center px-3 py-1 bg-grey-50 rounded-md ${outlineStyle}`;
+  };
   return (
     <div className="bg-grey-200 w-screen h-screen">
       <header className="h-2/10 w-full flex justify-center items-center">
         <img src={logo} alt="logo" className="w-[90px] h-[55px]" />
       </header>
-      <main className="bg-white h-8/10 w-full rounded-t-2xl py-7 px-6">
-        <section>
+      <main className="bg-white h-full w-full rounded-t-2xl py-7 px-6 flex flex-col justify-around">
+        <section className="h-6/10 flex flex-col justify-around">
           <div>
             <label htmlFor="billInput">Bill</label>
-            <div
-              className="w-full flex items-center px-3 py-1 bg-grey-50 rounded-md focus:outline-2 focus:outline-b-green-900"
-              tabIndex={0}
-            >
+            <div className={inputStyle("bill")} tabIndex={0}>
               <img src={dollar} alt="dollar icon" className="h-4 w-3" />
               <input
+                onFocus={() => setBillFocus(true)}
+                onBlur={() => setBillFocus(false)}
                 type="number"
                 name="billInput"
                 className="w-full text-2xl text-right focus:outline-0"
@@ -78,12 +96,12 @@ function App() {
           </div>
           <div className="w-full">
             <label htmlFor="tipInput">Select Tip %</label>
-            <div className="w-full flex flex-wrap gap-3 justify-center">
+            <div className="section-div w-full flex flex-wrap gap-3 justify-center">
               {tipAmounts.map((amount) => (
                 <button
                   name="tipInput"
                   key={amount}
-                  className="border border-green-300 w-[130px] text-2xl py-1 rounded-md text-grey-50 bg-green-900"
+                  className="border border-green-300 w-[130px] text-2xl py-1.5 rounded-md text-grey-50 bg-green-900"
                   onClick={() => setTipPercent(amount / 100)}
                 >
                   {amount}%
@@ -100,15 +118,14 @@ function App() {
           </div>
           <div>
             <label htmlFor="peopleInput">Number of People</label>
-            <div
-              className="w-full flex items-center px-3 py-1 bg-grey-50 focus:outline-2 rounded-md focus:outline-b-green-900"
-              tabIndex={0}
-            >
+            <div className={inputStyle("name")} tabIndex={0}>
               <img src={person} alt="person icon" className="h-4 w-3" />
               <input
                 type="number"
                 id="peopleInput"
                 placeholder="0"
+                onFocus={() => setNameFocus(true)}
+                onBlur={() => setNameFocus(false)}
                 className="w-full text-2xl text-right focus:outline-0"
                 onChange={(e) =>
                   setUserInfo((prev) => ({
@@ -120,7 +137,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="bg-green-900 w-full px-5 pb-6 pt-8 h-58 flex flex-col justify-between rounded-lg">
+        <section className="bg-green-900 w-full px-5 pb-6 pt-8 min-h-58 flex flex-col justify-between rounded-lg">
           <div className="flex items-center">
             <div className="w-1/2">
               <p className="text-grey-50">Tip Amount</p>
