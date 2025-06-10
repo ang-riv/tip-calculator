@@ -10,6 +10,7 @@
   --color-grey-50: hsl(189, 47%, 97%);
   --color-red: hsl(0, 100%, 60%);
   --color-white: #fff;
+  --breakpoint-xs: 32em;
 }
 
 * {
