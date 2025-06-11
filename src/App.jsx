@@ -112,11 +112,11 @@ function App() {
 
   return (
     <>
-      <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center ">
+      <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center">
         <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
           <img src={logo} alt="logo" className="w-[5.625em] h-[3.438em]" />
         </header>
-        <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[46.75em] md:flex-row md:shadow-[1px_3px_20px_0px_rgb(161,194,197)] md:rounded-2xl md:h-[28.125em] lg:max-w-[56.25em] lg:h-[31.25em]">
+        <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[46.75em] md:flex-row md:shadow-[1px_3px_20px_0px_rgb(161,194,197)] rounded-2xl md:h-[28.125em] lg:max-w-[56.25em] lg:h-[31.25em]">
           {/* input section */}
           <section className="h-6/10 flex flex-col justify-around max-w-md md:h-full md:w-5/10 md:mr-5">
             {/* bill section */}
