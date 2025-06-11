@@ -111,131 +111,155 @@ function App() {
   };
 
   return (
-    <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center">
-      <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
-        <img src={logo} alt="logo" className="w-[5.625em] h-[3.438em]" />
-      </header>
-      <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[46.75em] md:flex-row md:rounded-2xl md:h-[28.125em] lg:max-w-[56.25em] lg:h-[31.25em]">
-        {/* input section */}
-        <section className="h-6/10 flex flex-col justify-around max-w-md md:h-full md:w-5/10 md:mr-5">
-          {/* bill section */}
-          <div className="section-margins">
-            <label htmlFor="billInput">Bill</label>
-            <div className={inputStyle("bill")} tabIndex={0}>
-              <img src={dollar} alt="dollar icon" className="h-4 w-3" />
-              <input
-                ref={billRef}
-                onFocus={() => setBillFocus(true)}
-                onBlur={() => setBillFocus(false)}
-                type="number"
-                name="billInput"
-                className="w-full text-2xl text-right focus:outline-0 text-green-900"
-                placeholder="0"
-                onChange={(e) =>
-                  setUserInfo((prev) => ({
-                    ...prev,
-                    billAmount: Number(e.target.value),
-                  }))
-                }
-              />
-            </div>
-          </div>
-          {/* select tip section */}
-          <div className="w-full section-margins">
-            <label htmlFor="tipInput">Select Tip %</label>
-            <div className="w-full flex justify-center ">
-              <div className="section-div flex flex-wrap gap-3 justify-center max-w-[31.25em] ">
-                {tipAmounts.map((amount) => (
-                  <button
-                    name="tipInput"
-                    key={amount}
-                    className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
-                      selectedTip === amount
-                        ? "bg-grey-200 text-green-900"
-                        : "bg-green-900 text-grey-50"
-                    } bg-green-900 hover:text-green-900 hover:cursor-pointer hover:bg-grey-200`}
-                    onClick={() => handleSelect(amount)}
-                  >
-                    {amount}%
-                  </button>
-                ))}
+    <>
+      <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center ">
+        <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
+          <img src={logo} alt="logo" className="w-[5.625em] h-[3.438em]" />
+        </header>
+        <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[46.75em] md:flex-row md:shadow-[1px_3px_20px_0px_rgb(161,194,197)] md:rounded-2xl md:h-[28.125em] lg:max-w-[56.25em] lg:h-[31.25em]">
+          {/* input section */}
+          <section className="h-6/10 flex flex-col justify-around max-w-md md:h-full md:w-5/10 md:mr-5">
+            {/* bill section */}
+            <div className="section-margins">
+              <label htmlFor="billInput">Bill</label>
+              <div className={inputStyle("bill")} tabIndex={0}>
+                <img src={dollar} alt="dollar icon" className="h-4 w-3" />
                 <input
+                  ref={billRef}
+                  onFocus={() => setBillFocus(true)}
+                  onBlur={() => setBillFocus(false)}
                   type="number"
-                  name="tipInput"
-                  min={2}
-                  max={30}
-                  placeholder="Custom"
-                  className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right md:min-w-[160px] lg:min-w-[130px]"
-                  onChange={(e) => setTipPercent(Number(e.target.value) / 100)}
+                  name="billInput"
+                  className="w-full text-2xl text-right focus:outline-0 text-green-900"
+                  placeholder="0"
+                  onChange={(e) =>
+                    setUserInfo((prev) => ({
+                      ...prev,
+                      billAmount: Number(e.target.value),
+                    }))
+                  }
                 />
               </div>
             </div>
-          </div>
-          {/* people section */}
-          <div className="section-margins">
-            <div className="flex w-full justify-between">
-              <label htmlFor="peopleInput">Number of People</label>
-              <p className="text-red" hidden={peopleError.desktop}>
+            {/* select tip section */}
+            <div className="w-full section-margins">
+              <label htmlFor="tipInput">Select Tip %</label>
+              <div className="w-full flex justify-center ">
+                <div className="section-div flex flex-wrap gap-3 justify-center max-w-[31.25em] ">
+                  {tipAmounts.map((amount) => (
+                    <button
+                      name="tipInput"
+                      key={amount}
+                      className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
+                        selectedTip === amount
+                          ? "bg-grey-200 text-green-900"
+                          : "bg-green-900 text-grey-50"
+                      } bg-green-900 hover:text-green-900 hover:cursor-pointer hover:bg-grey-200`}
+                      onClick={() => handleSelect(amount)}
+                    >
+                      {amount}%
+                    </button>
+                  ))}
+                  <input
+                    type="number"
+                    name="tipInput"
+                    min={2}
+                    max={30}
+                    placeholder="Custom"
+                    className="bg-grey-50 w-[130px] text-2xl p-1 text-center rounded-md focus:outline-green-primary text-green-900 focus:text-right md:min-w-[160px] lg:min-w-[130px]"
+                    onChange={(e) =>
+                      setTipPercent(Number(e.target.value) / 100)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            {/* people section */}
+            <div className="section-margins">
+              <div className="flex w-full justify-between">
+                <label htmlFor="peopleInput">Number of People</label>
+                <p className="text-red" hidden={peopleError.desktop}>
+                  Can't be zero.
+                </p>
+              </div>
+              <div className={inputStyle("name")} tabIndex={0}>
+                <img src={person} alt="person icon" className="h-4 w-3" />
+                <input
+                  ref={nameRef}
+                  type="number"
+                  id="peopleInput"
+                  placeholder="0"
+                  onFocus={() => setPeopleFocus(true)}
+                  onBlur={() => setPeopleFocus(false)}
+                  className="w-full text-2xl text-right focus:outline-0 text-green-900"
+                  onChange={(e) =>
+                    setUserInfo((prev) => ({
+                      ...prev,
+                      people: Number(e.target.value),
+                    }))
+                  }
+                />
+              </div>
+              <p className="mt-1.5 text-red" hidden={peopleError.mobile}>
                 Can't be zero.
               </p>
             </div>
-            <div className={inputStyle("name")} tabIndex={0}>
-              <img src={person} alt="person icon" className="h-4 w-3" />
-              <input
-                ref={nameRef}
-                type="number"
-                id="peopleInput"
-                placeholder="0"
-                onFocus={() => setPeopleFocus(true)}
-                onBlur={() => setPeopleFocus(false)}
-                className="w-full text-2xl text-right focus:outline-0 text-green-900"
-                onChange={(e) =>
-                  setUserInfo((prev) => ({
-                    ...prev,
-                    people: Number(e.target.value),
-                  }))
-                }
-              />
-            </div>
-            <p className="mt-1.5 text-red" hidden={peopleError.mobile}>
-              Can't be zero.
-            </p>
-          </div>
-        </section>
-        {/* output section */}
-        <section className="bg-green-900 w-full px-5 pb-6 pt-8 min-h-58 flex flex-col justify-between rounded-lg max-w-md md:h-full md:w-5/10 md:p-10">
-          <div>
-            <div className="flex items-center mb-10">
-              <div className="w-1/2">
-                <p className="text-grey-50">Tip Amount</p>
-                <p className="text-grey-400 text-sm">/ person</p>
+          </section>
+          {/* output section */}
+          <section className="bg-green-900 w-full px-5 pb-6 pt-8 min-h-58 flex flex-col justify-between rounded-lg max-w-md md:h-full md:w-5/10 md:p-10">
+            <div>
+              <div className="flex items-center mb-10">
+                <div className="w-1/2">
+                  <p className="text-grey-50">Tip Amount</p>
+                  <p className="text-grey-400 text-sm">/ person</p>
+                </div>
+                <div className="w-1/2">
+                  <p className="text-2xl text-green-primary text-right md:text-5xl">
+                    ${newAmounts.singleTip.toFixed(2)}
+                  </p>
+                </div>
               </div>
-              <div className="w-1/2">
-                <p className="text-2xl text-green-primary text-right md:text-5xl">
-                  ${newAmounts.singleTip.toFixed(2)}
-                </p>
+              <div className="flex items-center">
+                <div className="w-1/2">
+                  <p className="text-grey-50">Total</p>
+                  <p className="text-grey-400 text-sm">/ person</p>
+                </div>
+                <div className="w-1/2">
+                  <p className="text-2xl text-green-primary text-right md:text-5xl">
+                    ${newAmounts.singleTotal.toFixed(2)}
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center">
-              <div className="w-1/2">
-                <p className="text-grey-50">Total</p>
-                <p className="text-grey-400 text-sm">/ person</p>
-              </div>
-              <div className="w-1/2">
-                <p className="text-2xl text-green-primary text-right md:text-5xl">
-                  ${newAmounts.singleTotal.toFixed(2)}
-                </p>
-              </div>
+            <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6 hover:bg-grey-200">
+              <button onClick={handleReset} className="hover:cursor-pointer">
+                RESET
+              </button>
             </div>
-          </div>
-          <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6 hover:bg-grey-200">
-            <button onClick={handleReset} className="hover:cursor-pointer">
-              RESET
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
+          </section>
+        </main>
+        <div className="text-sm mt-5 text-grey-500 text-center">
+          <p>
+            Challenge by{" "}
+            <a
+              href="https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX"
+              target="_blank"
+              className="text-green-900 hover:underline"
+            >
+              Frontend Mentor
+            </a>
+            . Coded by{" "}
+            <a
+              href="https://github.com/ang-riv"
+              className="text-green-900 hover:underline"
+            >
+              Angela Rivera
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
 
