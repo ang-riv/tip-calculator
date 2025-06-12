@@ -3,6 +3,7 @@ import logo from "./assets/logo.svg";
 import dollar from "./assets/icon-dollar.svg";
 import person from "./assets/icon-person.svg";
 import { useWindowSize } from "@uidotdev/usehooks";
+import fitty from "fitty";
 function App() {
   const [userInfo, setUserInfo] = useState({ billAmount: 0, people: null });
   const [tipPercent, setTipPercent] = useState(null);
@@ -20,6 +21,9 @@ function App() {
   });
   const billRef = useRef(null);
   const nameRef = useRef(null);
+
+  const singleTipRef = useRef(null);
+  const singleTotalRef = useRef(null);
   const size = useWindowSize();
 
   const handleSelect = (amount) => {
@@ -78,7 +82,24 @@ function App() {
         setPeopleError({ mobile: true, desktop: true });
       }
     }
-  }, [userInfo, nameRef, tipPercent]);
+
+    const resizeSingle = fitty(singleTipRef.current, {
+      minSize: 12,
+      maxSize: 48,
+    });
+    const resizeTotal = fitty(singleTotalRef.current, {
+      minSize: 12,
+      maxSize: 48,
+    });
+
+    resizeSingle.fit();
+    resizeTotal.fit();
+
+    return () => {
+      resizeSingle.unsubscribe();
+      resizeTotal.unsubscribe();
+    };
+  }, [userInfo, nameRef, tipPercent, singleTipRef, singleTotalRef]);
 
   const inputStyle = (input) => {
     let outlineStyle = "";
@@ -213,8 +234,11 @@ function App() {
                   <p className="text-grey-50">Tip Amount</p>
                   <p className="text-grey-400 text-sm">/ person</p>
                 </div>
-                <div className="w-1/2">
-                  <p className="text-2xl text-green-primary text-right md:text-5xl">
+                <div className="w-1/2 h-full">
+                  <p
+                    ref={singleTipRef}
+                    className="text-2xl text-green-primary text-right md:text-5xl w-full h-full"
+                  >
                     ${newAmounts.singleTip.toFixed(2)}
                   </p>
                 </div>
@@ -224,15 +248,21 @@ function App() {
                   <p className="text-grey-50">Total</p>
                   <p className="text-grey-400 text-sm">/ person</p>
                 </div>
-                <div className="w-1/2">
-                  <p className="text-2xl text-green-primary text-right md:text-5xl">
+                <div className="w-1/2 h-full">
+                  <p
+                    ref={singleTotalRef}
+                    className="text-2xl text-green-primary text-right md:text-5xl w-full h-full"
+                  >
                     ${newAmounts.singleTotal.toFixed(2)}
                   </p>
                 </div>
               </div>
             </div>
-            <div className="w-full text-green-900 bg-green-primary text-center py-2.5 rounded-md mt-6 hover:bg-grey-200">
-              <button onClick={handleReset} className="hover:cursor-pointer">
+            <div className="w-full mt-6 hover:bg-grey-200">
+              <button
+                onClick={handleReset}
+                className="hover:cursor-pointer rounded-md py-2.5 w-full text-green-900 bg-green-primary text-center"
+              >
                 RESET
               </button>
             </div>
