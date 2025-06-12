@@ -1,13 +1,29 @@
-# React + Vite
+# Tip Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React app that calculates the tip amount based on the bill total, selected tip percent, and number of people the bill is being split between. Built as solution to a [FrontendMentor Challenge](https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX).
 
-Currently, two official plugins are available:
+### Built with:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
 
-## Expanding the ESLint configuration
+![Desktop View](./src/assets/desktop-view.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# tip-calculator
+### Deployment
+
+https://ang-riv.github.io/tip-calculator/
+
+## Introduction
+
+Tip Calculator is a straightforward app that displays the total amount that each person will pay based on the tip percent chosen.
+
+## Features
+
+- **Immediate calculation:** the moment the user inputs all the required information, the tip and total amount per person is calculated right away.
+- **Custom Tip Percent:** users can enter a specific number if they want a percentage that is different from the predefined number buttons.
+
+## Challenges
+
+- **Problem**: Things that needed to work together were separated. Initially, the project was done in seperate components right away without taking into account what would need to work with what.
+  - **Solution**: Re-did the project all in one big component before figuring out what can be separated into smaller components.
+- **Problem**: Filtering notes based on date. Notes weren't showing up in order if they were created on the same day, especially if they were created very close in time to each other.
+  - **Solution**: Included the full date in each note down to the second.
