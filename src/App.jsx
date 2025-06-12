@@ -151,7 +151,7 @@ function App() {
                   onFocus={() => setBillFocus(true)}
                   onBlur={() => setBillFocus(false)}
                   type="number"
-                  name="billInput"
+                  id="billInput"
                   className="w-full text-2xl text-right focus:outline-0 text-green-900"
                   placeholder="0"
                   onChange={(e) =>
@@ -170,7 +170,6 @@ function App() {
                 <div className="section-div flex flex-wrap gap-3 justify-center max-w-[31.25em] ">
                   {tipAmounts.map((amount) => (
                     <button
-                      name="tipInput"
                       key={amount}
                       className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
                         selectedTip === amount
@@ -184,7 +183,7 @@ function App() {
                   ))}
                   <input
                     type="number"
-                    name="tipInput"
+                    id="tipInput"
                     min={2}
                     max={30}
                     placeholder="Custom"
