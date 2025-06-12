@@ -23,7 +23,7 @@ Tip Calculator is a straightforward app that displays the total amount that each
 
 ## Challenges
 
-- **Problem**: Things that needed to work together were separated. Initially, the project was done in seperate components right away without taking into account what would need to work with what.
-  - **Solution**: Re-did the project all in one big component before figuring out what can be separated into smaller components.
-- **Problem**: Filtering notes based on date. Notes weren't showing up in order if they were created on the same day, especially if they were created very close in time to each other.
-  - **Solution**: Included the full date in each note down to the second.
+- **Problem**: The challenge doesn't include tablet designs, so I wasn't sure what those should look like as the mobile version would look too small on a tablet size and the desktop wouldn't fit horizontally.
+  - **Solution**: Added a max-widths and max-heights on both the main container as well as in certain sections to prevent the design from looking too big on tablet screens.
+- **Problem**: When all information was entered by the user and then they decide to change the tip percent, the updated totals wouldn't be shown.
+  - **Solution**: Found out that the totals were being calculated with the new tip percents, it just wasn't being re-rendered. Added the tip percent to the useEffect dependencies array so it would render and show the new total.

@@ -44,7 +44,6 @@ function App() {
 
   const tipAmounts = [5, 10, 15, 25, 50];
 
-  // event handlers
   const handleCalculations = () => {
     const tip = userInfo.billAmount * tipPercent;
 
@@ -80,6 +79,7 @@ function App() {
       }
     }
   }, [userInfo, nameRef, tipPercent]);
+
   const inputStyle = (input) => {
     let outlineStyle = "";
     let errorStyle = "";
