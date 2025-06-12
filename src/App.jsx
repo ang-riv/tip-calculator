@@ -83,6 +83,7 @@ function App() {
       }
     }
 
+    // make totals fit inside the container
     const resizeSingle = fitty(singleTipRef.current, {
       minSize: 12,
       maxSize: 48,
