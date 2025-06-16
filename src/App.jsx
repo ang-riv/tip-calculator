@@ -83,6 +83,7 @@ function App() {
       }
     }
 
+    // make totals fit inside the container
     const resizeSingle = fitty(singleTipRef.current, {
       minSize: 12,
       maxSize: 48,
@@ -169,7 +170,6 @@ function App() {
                 <div className="section-div flex flex-wrap gap-3 justify-center max-w-[31.25em] ">
                   {tipAmounts.map((amount) => (
                     <button
-                      name="tipInput"
                       key={amount}
                       className={`min-w-[130px] lg:min-w-[130px] text-2xl py-2.5 rounded-md md:min-w-[160px] ${
                         selectedTip === amount
