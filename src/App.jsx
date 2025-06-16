@@ -150,7 +150,7 @@ function App() {
                   onFocus={() => setBillFocus(true)}
                   onBlur={() => setBillFocus(false)}
                   type="number"
-                  name="billInput"
+                  id="billInput"
                   className="w-full text-2xl text-right focus:outline-0 text-green-900"
                   placeholder="0"
                   onChange={(e) =>
@@ -181,9 +181,10 @@ function App() {
                       {amount}%
                     </button>
                   ))}
+                  <label htmlFor="tipInput" className="sr-only"></label>
                   <input
                     type="number"
-                    name="tipInput"
+                    id="tipInput"
                     min={2}
                     max={30}
                     placeholder="Custom"
