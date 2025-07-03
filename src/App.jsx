@@ -136,6 +136,7 @@ function App() {
     <>
       <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center">
         <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
+          <h1 className="sr-only">Tip Calculator</h1>
           <img
             src={logo}
             alt="main site logo"
@@ -185,12 +186,9 @@ function App() {
                       {amount}%
                     </button>
                   ))}
-                  <label htmlFor="tipPercentInput" className="sr-only">
-                    Enter Tip Percent
-                  </label>
                   <input
                     type="number"
-                    id="tipPercentInput"
+                    id="tipInput"
                     min={2}
                     max={30}
                     placeholder="Custom"
@@ -238,7 +236,7 @@ function App() {
             <div>
               <div className="flex items-center mb-10">
                 <div className="w-1/2">
-                  <p className="text-grey-50">Tip Amount</p>
+                  <h2 className="text-grey-50">Tip Amount</h2>
                   <p className="text-grey-400 text-sm">/ person</p>
                 </div>
                 <div className="w-1/2 h-full">
@@ -252,7 +250,7 @@ function App() {
               </div>
               <div className="flex items-center">
                 <div className="w-1/2">
-                  <p className="text-grey-50">Total</p>
+                  <h2 className="text-grey-50">Total</h2>
                   <p className="text-grey-400 text-sm">/ person</p>
                 </div>
                 <div className="w-1/2 h-full">
