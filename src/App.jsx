@@ -136,7 +136,11 @@ function App() {
     <>
       <div className="bg-grey-200 overflow-y-scroll w-screen h-fit xs:h-screen flex flex-col items-center justify-center">
         <header className="h-[8.75em] min-xs:h-2/10 w-full flex justify-center items-center">
-          <img src={logo} alt="logo" className="w-[5.625em] h-[3.438em]" />
+          <img
+            src={logo}
+            alt="main site logo"
+            className="w-[5.625em] h-[3.438em]"
+          />
         </header>
         <main className="bg-white h-fit w-full rounded-t-2xl py-5 px-6 flex flex-col justify-around items-center xs:max-w-lg md:max-w-[46.75em] md:flex-row md:shadow-[1px_3px_20px_0px_rgb(161,194,197)] rounded-2xl md:h-[28.125em] lg:max-w-[56.25em] lg:h-[31.25em]">
           {/* input section */}
@@ -181,10 +185,12 @@ function App() {
                       {amount}%
                     </button>
                   ))}
-                  <label htmlFor="tipInput" className="sr-only"></label>
+                  <label htmlFor="tipPercentInput" className="sr-only">
+                    Enter Tip Percent
+                  </label>
                   <input
                     type="number"
-                    id="tipInput"
+                    id="tipPercentInput"
                     min={2}
                     max={30}
                     placeholder="Custom"
