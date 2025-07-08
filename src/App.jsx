@@ -237,7 +237,7 @@ function App() {
               <div className="flex items-center mb-10">
                 <div className="w-1/2">
                   <h2 className="text-grey-50">Tip Amount</h2>
-                  <p className="text-grey-400 text-sm">/ person</p>
+                  <p className="text-grey-450 text-sm">/ person</p>
                 </div>
                 <div className="w-1/2 h-full">
                   <p
@@ -251,7 +251,7 @@ function App() {
               <div className="flex items-center">
                 <div className="w-1/2">
                   <h2 className="text-grey-50">Total</h2>
-                  <p className="text-grey-400 text-sm">/ person</p>
+                  <p className="text-grey-450 text-sm">/ person</p>
                 </div>
                 <div className="w-1/2 h-full">
                   <p
@@ -273,7 +273,7 @@ function App() {
             </div>
           </section>
         </main>
-        <div className="text-sm mt-5 text-grey-500 text-center">
+        <div className="text-sm mt-5 text-grey-550 text-center">
           <p>
             Challenge by{" "}
             <a

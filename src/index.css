@@ -3,8 +3,11 @@
 @theme {
   --color-*: initial;
   --color-green-primary: hsl(172, 67%, 45%);
+  --color-green-950: hsl(187, 100%, 8%);
   --color-green-900: hsl(183, 100%, 15%);
+  --color-grey-550: hsl(180, 15%, 23%);
   --color-grey-500: hsl(186, 14%, 43%);
+  --color-grey-450: hsl(185, 15%, 83%);
   --color-grey-400: hsl(184, 14%, 56%);
   --color-grey-200: hsl(185, 41%, 84%);
   --color-grey-50: hsl(189, 47%, 97%);
